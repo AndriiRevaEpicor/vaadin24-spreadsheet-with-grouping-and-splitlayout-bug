@@ -1,69 +1,37 @@
-# Project Base for Vaadin and Spring Boot
+# vaadin24-spreadsheet-with-grouping-and-splitlayout-bug
 
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+This project reveals an issue when we use `SplitLayout` with primary component as `Spreadsheet`
+(Excel file with grouping) and other second one as random component (in our case is Button).
 
-The best way to create your own project based on this starter is [start.vaadin.com](https://start.vaadin.com/) - you can get only the necessary parts and choose the package naming you want to use.
+Project's skeleton was got from https://start.vaadin.com/app and used `Flow/Java` - `Java` - `Maven` - `Spring Boot`.
+
+JDK was used as `Eclipse Temurin (AdoptOpenJDK HotSpot) 21.0.3`
+
+## Describe of the issue
+
+Was used next Vaadin's version for test:
+* Vaadin 24.3.12 with Spring Boot - `com.vaadin:vaadin-spring-boot-starter:24.3.12`
+* Spreadsheet component 24.3.12   - `com.vaadin:vaadin-spreadsheet-flow:24.3.12`
+
+When we want to use `SplitLayout` when `Spreadsheet` is primary component and some of another component will be
+as second component, and we want to use `Excel file` as complex Spreadsheet (bunch of data with some of frozen rows)
+with `grouping behavior` and a  then after we clicked on the collapse/expand button all rows except frozen rows
+become invisible.
+
+If we try to click on collapse/expand button again the issue won't disappear.
+
+Also, this bug reproduces when we move splitter closer to the spreadsheet (left) side and then click on collapse/expand
+button.
+
+Temp workaround is, after refresh the browser tab to reset broken state, move splitter closer to
+opposite of the spreadsheet (right) side and after that after click on the collapse/expand button spreadsheet
+won't break.
+
+NOTE: the same behavior was noticed on Vaadin 8.24.0 and Spreadsheet addon 2.1.1
+(`HorizontalSplitPanel` with Spreadsheet as first component),
+(`com.vaadin:vaadin-spreadsheet:2.1.1-dspanel` / `com.vaadin:vaadin-spreadsheet:2.1.1`)
 
 ## Running the Application
-There are two ways to run the application :  using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
-
-You can use any IDE of your preference,but we suggest Eclipse or Intellij IDEA.
-Below are the configuration details to start the project using a `spring-boot:run` command. Both Eclipse and Intellij IDEA are covered.
-
-#### Eclipse
-- Right click on a project folder and select `Run As` --> `Maven build..` . After that a configuration window is opened.
-- In the window set the value of the **Goals** field to `spring-boot:run` 
-- You can optionally select `Skip tests` checkbox
-- All the other settings can be left to default
-
-Once configurations are set clicking `Run` will start the application
-
-#### Intellij IDEA
-- On the right side of the window, select Maven --> Plugins--> `spring-boot` --> `spring-boot:run` goal
-- Optionally, you can disable tests by clicking on a `Skip Tests mode` blue button.
-
-Clicking on the green run button will start the application.
+Just run the `Application` class directly from your IDE.
 
 After the application has started, you can view your it at http://localhost:8080/ in your browser.
-
-
-If you want to run the application locally in the production mode, use `spring-boot:run -Pproduction` command instead.
-
-### Running Integration Tests
-
-Integration tests are implemented using [Vaadin TestBench](https://vaadin.com/testbench). The tests take a few minutes to run and are therefore included in a separate Maven profile. We recommend running tests with a production build to minimize the chance of development time toolchains affecting test stability. To run the tests using Google Chrome, execute
-
-`mvn verify -Pit,production`
-
-and make sure you have a valid TestBench license installed.
-
-## Structure
-
-Vaadin web applications are full-stack and include both client-side and server-side code in the same project.
-
-| Directory | Description |
-| :--- | :--- |
-| `frontend/` | Client-side source directory |
-| &nbsp;&nbsp;&nbsp;&nbsp;`index.html` | HTML template |
-| &nbsp;&nbsp;&nbsp;&nbsp;`index.ts` | Frontend entrypoint |
-| &nbsp;&nbsp;&nbsp;&nbsp;`main-layout.ts` | Main layout Web Component (optional) |
-| &nbsp;&nbsp;&nbsp;&nbsp;`views/` | UI views Web Components (TypeScript / HTML) |
-| &nbsp;&nbsp;&nbsp;&nbsp;`styles/` | Styles directory (CSS) |
-| `src/main/java/<groupId>/` | Server-side source directory |
-| &nbsp;&nbsp;&nbsp;&nbsp;`Application.java` | Server entrypoint |
-| &nbsp;&nbsp;&nbsp;&nbsp;`AppShell.java` | application-shell configuration |
-
-## Useful links
-
-- Read the documentation at [vaadin.com/docs](https://vaadin.com/docs).
-- Follow the tutorials at [vaadin.com/tutorials](https://vaadin.com/tutorials).
-- Watch training videos and get certified at [vaadin.com/learn/training](https://vaadin.com/learn/training).
-- Create new projects at [start.vaadin.com](https://start.vaadin.com/).
-- Search UI components and their usage examples at [vaadin.com/components](https://vaadin.com/components).
-- View use case applications that demonstrate Vaadin capabilities at [vaadin.com/examples-and-demos](https://vaadin.com/examples-and-demos).
-- Discover Vaadin's set of CSS utility classes that enable building any UI without custom CSS in the [docs](https://vaadin.com/docs/latest/ds/foundation/utility-classes). 
-- Find a collection of solutions to common use cases in [Vaadin Cookbook](https://cookbook.vaadin.com/).
-- Find Add-ons at [vaadin.com/directory](https://vaadin.com/directory).
-- Ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/vaadin) or join our [Discord channel](https://discord.gg/MYFq5RTbBn).
-- Report issues, create pull requests in [GitHub](https://github.com/vaadin/platform).
